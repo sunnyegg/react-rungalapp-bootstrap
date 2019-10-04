@@ -91,27 +91,33 @@ export default class Home extends Component {
 
     addCart(data) {
       console.log(data)
+      const { id, name, price, image, count } = data
+      let cart = { id, name, price, image, count: 1}
       const exists = this.state.cart.find(({ id }) => id === data.id)
       if (exists) {
         window.alert('Product is already in the cart!')
       } else {
         data.count=1
-        const cart = [...this.state.cart, data]
-        this.setState({cart})
+        const carts = [...this.state.cart, cart]
+        this.setState({cart: carts})
       }
     }
 
     addQty(data) {
       let cart = this.state.cart[data]
+      let product = this.state.data.find(product => product.id == cart.id)
       cart.count += 1
+      cart.price += product.price
       this.setState({cart: [cart]})
     }
 
     reduceQty(data) {
       let cart = this.state.cart[data]
       let allcart = this.state.cart
+      let product = this.state.data.find(product => product.id == cart.id)
       if (cart.count > 1) {
         cart.count -= 1
+        cart.price -= product.price
         this.setState({
           cart: [cart]
         })
@@ -227,7 +233,7 @@ export default class Home extends Component {
                                 <div className='col-sm-12 text-center'>
                                   <div className="btn-group btn-group-sm" role="group">
                                     <button type="button" className="btn btn-secondary" onClick={() => {this.reduceQty(key)}}>-</button>
-                                    <button type="button" className="btn btn-secondary">{item.count}</button>
+                                    <span className="btn btn-secondary">{item.count}</span>
                                     <button type="button" className="btn btn-secondary" onClick={() => {this.addQty(key)}}>+</button>
                                   </div>
                                 </div>
