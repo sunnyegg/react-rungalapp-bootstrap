@@ -8,11 +8,13 @@ export default class Home extends Component {
         super()
         this.state = {
             data: [],
+            cart: [],
             search: '',
             sort: 'id',
             order: 'asc',
-            page: '1',
+            page: '0',
         }
+        this.addCart = this.addCart.bind(this)
     }
 
     async componentDidMount() {
@@ -34,11 +36,19 @@ export default class Home extends Component {
       axios.get(`http://localhost:3333/api/v1/products${querySort}${querySearch}${queryPage}`)
       .then(result => {
           this.setState({data: result.data.data})
+          // let page = []
+
+          // const currentPage = Math.ceil(result.data.data / 5)
+
+          // for (let i=0; i < currentPage; i++){
+          //   page.push(i+1)
+          // }
       })
       .catch(err => {
           console.log(err)
       })
     }
+
 
     getSearch = (e) => {
       e.preventDefault()
@@ -66,10 +76,49 @@ export default class Home extends Component {
     getPage = (e) => {
       e.preventDefault()
       let page = e.target.value
-      let pageCount = this.state.data.length
 
       this.setState({page})
       this.getAll(this.state.search, this.state.sort, this.state.order, page)
+    }
+    // pagination = () => {
+    //   const allPages = this.state.allPages
+    //   const pageGo
+
+    //   return(
+
+    //   )
+    // }
+
+    addCart(data) {
+      console.log(data)
+      const exists = this.state.cart.find(({ id }) => id === data.id)
+      if (exists) {
+        window.alert('Product is already in the cart!')
+      } else {
+        data.count=1
+        const cart = [...this.state.cart, data]
+        this.setState({cart})
+      }
+    }
+
+    addQty(data) {
+      let cart = this.state.cart[data]
+      cart.count += 1
+      this.setState({cart: [cart]})
+    }
+
+    reduceQty(data) {
+      let cart = this.state.cart[data]
+      let allcart = this.state.cart
+      if (cart.count > 1) {
+        cart.count -= 1
+        this.setState({
+          cart: [cart]
+        })
+      } else {
+        allcart.splice(data, 1)
+        this.setState({cart: allcart})
+      }
     }
 
     render() {
@@ -111,12 +160,16 @@ export default class Home extends Component {
                   </div>
                   <div className="form-group col-sm" style={{marginTop: 40}}>
                     <nav aria-label="Page navigation example">
-                      <ul className="pagination justify-content-end" onClick={this.getPage}>
-                        <li className="page-item"><button className='page-link' value='1'>1</button></li>
-                        <li className="page-item"><button className='page-link' value='2'>2</button></li>
-                        <li className="page-item"><button className='page-link' value='3'>3</button></li>
-                        <li className="page-item"><button className='page-link' value='4'>4</button></li>
-                      </ul>
+                      {/* {this.getPage.map((item) => {
+                        return ( */}
+                          <ul className="pagination justify-content-end" onClick={this.getPage}>
+                            <li className="page-item"><button className='page-link' value='1'>1</button></li>
+                            <li className="page-item"><button className='page-link' value='2'>2</button></li>
+                            <li className="page-item"><button className='page-link' value='3'>3</button></li>
+                            <li className="page-item"><button className='page-link' value='4'>4</button></li>
+                          </ul>
+                        {/* )
+                      })} */}
                     </nav>
                   </div>
                 </div>
@@ -140,7 +193,7 @@ export default class Home extends Component {
                                   </p>
                                 </div>
                                 <div className='col-sm-6'>
-                                  <button className='btn btn-primary'>Add to Cart</button>
+                                  <button className='btn btn-primary' onClick={(data) => this.addCart(item)}>Add to Cart</button>
                                 </div>
                               </div>
                             </div>
@@ -155,30 +208,34 @@ export default class Home extends Component {
                   <div className='row'>
                     <div className='col-sm-12'>
                       {/* <img src={cartempty} /> */}
-                      <h5 className='mt-2 text-center'>Cart</h5>
-                        <div className="card ml-2 mx-auto" style={{width: 200, marginTop: 10}}>
-                          <img
-                            src={rice}
-                            className="card-img-top"
-                            alt='rice' />
-                          <div className="card-body">
-                            <h5 className="card-title">
-                              Tempe
-                            </h5>
-                            <p>
-                              Rp. 1000
-                            </p>
+                      <h5 className='mt-2 text-center'>Cart {this.state.cart.length}</h5>
+                        {this.state.cart.map((item, key) => {
+                          return (
+                            <div className="card ml-2 mx-auto" style={{width: 200, marginTop: 10}}>
+                              <img
+                                src={`http://localhost:3333/${item.image}`}
+                                className="card-img-top"
+                                alt={item.name} />
+                              <div className="card-body">
+                                <h5 className="card-title">
+                                  {item.name}
+                                </h5>
+                                <p>
+                                  Rp. {item.price}
+                                </p>
 
-                            <div className='col-sm-12 text-center'>
-                              <div className="btn-group btn-group-sm" role="group">
-                                <button type="button" className="btn btn-secondary">-</button>
-                                <button type="button" className="btn btn-secondary">100</button>
-                                <button type="button" className="btn btn-secondary">+</button>
+                                <div className='col-sm-12 text-center'>
+                                  <div className="btn-group btn-group-sm" role="group">
+                                    <button type="button" className="btn btn-secondary" onClick={() => {this.reduceQty(key)}}>-</button>
+                                    <button type="button" className="btn btn-secondary">{item.count}</button>
+                                    <button type="button" className="btn btn-secondary" onClick={() => {this.addQty(key)}}>+</button>
+                                  </div>
+                                </div>
+                                
                               </div>
                             </div>
-                            
-                          </div>
-                        </div>
+                          )
+                        })}
                     </div>
                     
                   </div>
