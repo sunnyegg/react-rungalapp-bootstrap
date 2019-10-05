@@ -43,7 +43,7 @@ export default class Login extends Component {
 											name="user"
 											id="username"
 											className="form-control"
-											value={this.state.user}
+											// value={this.state.user}
 											// onChange={this.onChangeLogin}
 										/>
 									</div>
@@ -57,7 +57,7 @@ export default class Login extends Component {
 											name="password"
 											id="password"
 											className="form-control"
-											value={this.state.password}
+											// value={this.state.password}
 											// onChange={this.onChangeLogin}
 										/>
 									</div>

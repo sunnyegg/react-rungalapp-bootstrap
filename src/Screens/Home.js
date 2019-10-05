@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import axios from 'axios'
 import cartempty from '../Assets/Img/cartempty.svg'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
@@ -156,7 +156,7 @@ export default class Home extends Component {
     // }
 
     render() {
-        return <>
+        return <Fragment>
           <nav className="navbar navbar-light bg-light fixed-top" >
             <a className="navbar-brand ml-5">Food Items</a>
             <form className="form-inline" style={{marginRight: 405}}>
@@ -363,6 +363,6 @@ export default class Home extends Component {
               </div>
             </div>
           </div>
-        </>
+        </Fragment>
     }
   }
