@@ -145,8 +145,15 @@ export default class Home extends Component {
           body: data,
         })
         window.location.href = 'http://localhost:3000/home'
-      }
-    
+    }
+
+    // deleteProduct(data, id) {
+    //   fetch('http://localhost:3333/api/v1/products/' + id , {
+    //     method: 'DELETE',
+    //   })
+    //   // window.location.href = 'http://localhost:3000/home'
+
+    // }
 
     render() {
         return <>
@@ -220,6 +227,7 @@ export default class Home extends Component {
                                   </p>
                                 </div>
                                 <div className='col-sm-6'>
+                                  {/* <button className='btn btn-danger' onClick={(data) => this.deleteProduct(data, data.id)}>Delete Product</button> */}
                                   <button className='btn btn-primary' onClick={(data) => this.addCart(item)}>Add to Cart</button>
                                 </div>
                               </div>
