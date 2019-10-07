@@ -1,10 +1,11 @@
 import React, { Fragment, Component } from "react";
 import axios from "axios";
 
-import cartempty from "../Assets/Img/cartempty.svg";
-import cartIcon from "../Assets/Icon/cartIcon.svg";
-import deleteIcon from "../Assets/Icon/delete.svg";
-import editIcon from "../Assets/Icon/edit.svg";
+import Navbar from "../Components/Navbar";
+import Body from "../Components/Body";
+import Sidebar from "../Components/Sidebar";
+import Cartside from "../Components/Cartside";
+import ModalCheckout from "../Components/ModalCheckout";
 
 import {
   Button,
@@ -31,14 +32,16 @@ export default class Home extends Component {
       search: "",
       sort: "name",
       order: "asc",
-      page: "0",
+      page: "1",
       totalPrice: 0,
       modal: false,
-      addModal: false
+      addModal: false,
+      editModal: false
     };
     this.addCart = this.addCart.bind(this);
     this.toggle = this.toggle.bind(this);
     this.addModalToggle = this.addModalToggle.bind(this);
+    this.editModalToggle = this.editModalToggle.bind(this);
   }
 
   toggle() {
@@ -49,6 +52,11 @@ export default class Home extends Component {
   addModalToggle() {
     this.setState(prevState => ({
       addModal: !prevState.addModal
+    }));
+  }
+  editModalToggle() {
+    this.setState(prevState => ({
+      editModal: !prevState.editModal
     }));
   }
 
@@ -158,6 +166,13 @@ export default class Home extends Component {
     }
   }
 
+  cancelCart() {
+    this.setState(prevState => ({
+      cart: [],
+      totalPrice: 0
+    }));
+  }
+
   addProduct(event) {
     event.preventDefault();
     const data = new FormData(event.target);
@@ -166,6 +181,8 @@ export default class Home extends Component {
       method: "POST",
       body: data
     });
+
+    window.location.reload();
   }
 
   deleteProduct(data, id) {
@@ -174,17 +191,15 @@ export default class Home extends Component {
         method: "DELETE"
       });
 
-      console.log(data.id);
+      window.location.reload();
     }
-
-    // window.location.href = 'http://localhost:3000/home'
   }
 
-  editProduct(event, id) {
-    event.prevState();
+  editProduct(event) {
+    event.preventDefault();
     const data = new FormData(event.target);
 
-    fetch("http://localhost:3333/api/v1/products/" + id, {
+    fetch("http://localhost:3333/api/v1/products/", {
       method: "POST",
       body: data
     });
@@ -193,31 +208,19 @@ export default class Home extends Component {
   render() {
     return (
       <Fragment>
-        <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand ml-5">Food Items</a>
-          <form className="form-inline" style={{ marginRight: 405 }}>
-            <input
-              value={this.state.search}
-              onChange={this.getSearch}
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
-        </nav>
+        <Navbar
+          search={val => {
+            this.getSearch(val);
+          }}
+        />
 
         <div className="container-fluid" style={{ backgroundColor: "#ecf0f1" }}>
           <div className="row">
-            <div className="col-sm-1">
-              <Button
-                className="mt-5"
-                color="success"
-                onClick={this.addModalToggle}
-              >
-                Add Product
-              </Button>
-            </div>
+            <Sidebar
+              addModalToggle={this.addModalToggle}
+              addModal={this.state.addModal}
+              addProduct={this.addProduct}
+            />
             <div
               className="col-sm-7 border mt-3 mb-2 ml-1 mr-1"
               style={{ backgroundColor: "white" }}
@@ -233,6 +236,7 @@ export default class Home extends Component {
                     <option value="name">Name</option>
                     <option value="price">Price</option>
                     <option value="category">Category</option>
+                    <option value="date_updated">Date</option>
                   </select>
                 </div>
                 <div className="form-group col-sm-2" style={{ marginTop: 10 }}>
@@ -280,203 +284,49 @@ export default class Home extends Component {
                   </nav>
                 </div>
               </div>
-              <div className="row">
-                {this.state.data.map((item, index) => {
-                  return (
-                    <div className="col-sm-4 mb-3">
-                      <div
-                        className="card"
-                        style={{ width: "auto", marginTop: 20 }}
-                        key={index}
-                      >
-                        <img
-                          src={`http://localhost:3333/${item.image}`}
-                          className="card-img-top"
-                          alt={item.name}
-                        />
-                        <div className="card-body">
-                          <h5 className="card-title">{item.name}</h5>
-                          <div className="row">
-                            <div className="col-sm-6">
-                              <p>Rp. {item.price}</p>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-sm-3">
-                              <button
-                                className="btn btn-primary"
-                                style={{ borderRadius: 0 }}
-                                onClick={data => this.addCart(item)}
-                              >
-                                <img src={cartIcon} />
-                              </button>
-                            </div>
-                            <div className="col-sm-3">
-                              <button
-                                className="btn btn-danger"
-                                style={{ borderRadius: 0 }}
-                                onClick={data =>
-                                  this.deleteProduct(item, item.id)
-                                }
-                              >
-                                <img src={deleteIcon} />
-                              </button>
-                            </div>
-                            <div className="col-sm-3 ml-4">
-                              <button
-                                className="btn btn-warning"
-                                style={{ borderRadius: 0 }}
-                                // onClick={data =>
-                                //   this.deleteProduct(item, item.id)
-                                // }
-                              >
-                                <img src={editIcon} />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+
+              <Body
+                data={this.state.data}
+                addCart={this.addCart}
+                deleteProduct={this.deleteProduct}
+                editModalToggle={this.editModalToggle}
+              />
             </div>
             <div
               className="col-sm-3 border mt-3 mb-5 ml-5"
               style={{ backgroundColor: "white" }}
             >
               <div className="container-fluid">
-                <div className="row">
-                  <div className="col-sm-12">
-                    <h5 className="mt-2 text-center">
-                      Cart {this.state.cart.length}
-                    </h5>
-                    {this.state.cart.length > 0 ? (
-                      this.state.cart.map((item, key) => {
-                        return (
-                          <div
-                            className="card ml-2 mx-auto"
-                            style={{ width: 200, marginTop: 10 }}
-                          >
-                            <img
-                              src={`http://localhost:3333/${item.image}`}
-                              className="card-img-top"
-                              alt={item.name}
-                            />
-                            <div className="card-body">
-                              <h5 className="card-title">{item.name}</h5>
-                              <p>Rp. {item.price}</p>
-
-                              <div className="col-sm-12 text-center">
-                                <div
-                                  className="btn-group btn-group-sm"
-                                  role="group"
-                                >
-                                  <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    onClick={() => {
-                                      this.reduceQty(key);
-                                    }}
-                                  >
-                                    -
-                                  </button>
-                                  <span className="btn btn-secondary">
-                                    {item.quantity}
-                                  </span>
-                                  <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    onClick={() => {
-                                      this.addQty(key);
-                                    }}
-                                  >
-                                    +
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <img className="col-sm-12" src={cartempty} />
-                    )}
-                  </div>
-                </div>
-                <div className="row mt-5 mx-auto border-top border-bottom">
-                  <div className="col-sm-12 mt-3">
-                    <h4 className="text-center">
-                      Total: Rp. {this.state.totalPrice}*
-                    </h4>
-                    <p className="text-center">*Belum termasuk ppn</p>
-                  </div>
-                </div>
-                <div className="row mx-auto mt-3">
-                  <div className="col-sm-12">
-                    <button
-                      type="button"
-                      className="btn btn-primary w-100"
-                      style={{ borderRadius: 0 }}
-                      onClick={this.toggle}
-                    >
-                      Checkout
-                    </button>
-                  </div>
-                  <div className="col-sm-12 mt-2">
-                    <button
-                      type="button"
-                      className="btn btn-danger w-100"
-                      style={{ borderRadius: 0 }}
-                      onClick={() => this.setState({ cart: [], totalPrice: 0 })}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                  <ModalHeader toggle={this.toggle}>
-                    <Container>
-                      <Row>
-                        <Col xs="6">
-                          <h5>Checkout</h5>
-                        </Col>
-                      </Row>
-                    </Container>
-                  </ModalHeader>
-                  <ModalBody>
-                    <Container>
-                      <Row>
-                        <Col>Name</Col>
-                        <Col>Quantity</Col>
-                        <Col>Price</Col>
-                      </Row>
-                    </Container>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="primary" onClick={this.toggle}>
-                      Print
-                    </Button>{" "}
-                    <Button color="secondary" onClick={this.toggle}>
-                      Send E-Mail
-                    </Button>
-                  </ModalFooter>
-                </Modal>
+                <Cartside
+                  cartData={this.state.cart}
+                  reduceQty={data => {
+                    this.reduceQty(data);
+                  }}
+                  addQty={data => {
+                    this.addQty(data);
+                  }}
+                  totalPrice={this.state.totalPrice}
+                  toggle={this.toggle}
+                  cancelCart={data => {
+                    this.cancelCart(data);
+                  }}
+                />
+                <ModalCheckout modal={this.state.modal} toggle={this.toggle} />
                 <Modal
-                  isOpen={this.state.addModal}
-                  toggle={this.addModalToggle}
+                  isOpen={this.state.editModal}
+                  toggle={this.editModalToggle}
                 >
-                  <ModalHeader toggle={this.addModalToggle}>
+                  <ModalHeader toggle={this.editModalToggle}>
                     <Container>
                       <Row>
                         <Col>
-                          <h5>Add Product</h5>
+                          <h5>Edit Product</h5>
                         </Col>
                       </Row>
                     </Container>
                   </ModalHeader>
                   <ModalBody>
-                    <Form onSubmit={this.addProduct}>
+                    <Form onSubmit={this.editProduct}>
                       <FormGroup>
                         <Label>Product Name</Label>
                         <Input type="text" name="name" />
@@ -505,8 +355,8 @@ export default class Home extends Component {
                         <Label>Quantity</Label>
                         <Input type="number" name="quantity" />
                       </FormGroup>
-                      <Button color="primary">Add</Button>{" "}
-                      <Button color="danger" onClick={this.addModalToggle}>
+                      <Button color="primary">Edit</Button>{" "}
+                      <Button color="danger" onClick={this.editModalToggle}>
                         Cancel
                       </Button>
                     </Form>
