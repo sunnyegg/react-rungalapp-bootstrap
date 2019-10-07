@@ -4,25 +4,26 @@
 # React Rungal
 
 ---
+
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Prerequisite](#prerequisite)
 - [Installation](#installation)
-    - [Clone](#clone)
-    - [Start](#start)
+  - [Clone](#clone)
+  - [Start](#start)
 - [Dependencies](#other-dependencies)
 - [Features](#features)
 - [Routes](#api-routes)
 
 ---
+
 ## Introduction
 
-Are you hungry? But too lazy to leave your bed and buy food? Rungal can help you order what you want to eat and deliver right to your front door!
-
-Rungal is a point of sales application of restaurant. The main use of this application is to take order from customer easier and faster. 
+Rungal is a point of sales application of restaurant. The main use of this application is to take order from customer easier and faster.
 
 ---
+
 ## Prerequisite
 
 - [Node.js](https://nodejs.org/en/)
@@ -30,9 +31,11 @@ Rungal is a point of sales application of restaurant. The main use of this appli
 - [Bootstrap](https://getbootstrap.com/)
 
 ---
+
 ## Installation
 
 ### Clone
+
 ```bash
 $ git clone https://github.com/sunnyegg/react-rungalapp-bootstrap.git
 $ cd react-rungalapp-bootstrap
@@ -40,20 +43,23 @@ $ npm install
 ```
 
 ---
+
 ### Start
+
 ```bash
 $ npm start
 ```
 
 ---
+
 ## Other Dependencies
 
 - [Axios](https://www.npmjs.com/package/axios)
 - [React Router DOM](https://www.npmjs.com/package/react-router-dom)
 - [Reactstrap](https://www.npmjs.com/package/reactstrap)
 
-
 ---
+
 ## Features
 
 - Get ALL products/categories
@@ -63,6 +69,7 @@ $ npm start
 - Reduce quantity product
 
 ---
+
 ## API Routes
 
 ### Product
