@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import cartempty from "../Assets/Img/cartempty.svg";
 
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Container,
+  Row,
+  Col
+} from "reactstrap";
+
+const convertRupiah = require("rupiah-format");
+
 export default class Cartside extends Component {
   constructor(props) {
     super();
@@ -28,7 +41,7 @@ export default class Cartside extends Component {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{item.name}</h5>
-                      <p>Rp. {item.price}</p>
+                      <p>{convertRupiah.convert(item.price)}</p>
 
                       <div className="col-sm-12 text-center">
                         <div className="btn-group btn-group-sm" role="group">
@@ -66,7 +79,9 @@ export default class Cartside extends Component {
         </div>
         <div className="row mt-5 mx-auto border-top border-bottom">
           <div className="col-sm-12 mt-3">
-            <h4 className="text-center">Total: Rp. {this.props.totalPrice}*</h4>
+            <h4 className="text-center">
+              Total: {convertRupiah.convert(this.props.totalPrice)}*
+            </h4>
             <p className="text-center">*Belum termasuk ppn</p>
           </div>
         </div>
@@ -75,7 +90,7 @@ export default class Cartside extends Component {
             <button
               type="button"
               className="btn btn-primary w-100"
-              style={{ borderRadius: 0 }}
+              // style={{ borderRadius: 0 }}
               onClick={this.props.toggle}
             >
               Checkout
@@ -85,13 +100,82 @@ export default class Cartside extends Component {
             <button
               type="button"
               className="btn btn-danger w-100"
-              style={{ borderRadius: 0 }}
+              // style={{ borderRadius: 0 }}
               onClick={this.props.cancelCart}
             >
               Cancel
             </button>
           </div>
         </div>
+        <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
+          <ModalHeader
+            toggle={this.props.toggle}
+            style={{ borderBottom: "white" }}
+          >
+            <Row>
+              <Col>
+                <h4>Checkout</h4>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <h6 className="">Receipt no: #12317df</h6>
+              </Col>
+            </Row>
+          </ModalHeader>
+
+          <ModalBody>
+            <Container>
+              <Row>
+                <Col>
+                  <p>Cashier: Adila</p>
+                </Col>
+              </Row>
+              <Row></Row>
+              <Row className="border">
+                <Col>
+                  <em>
+                    <b>Product Name:</b>
+                  </em>
+                </Col>
+                <Col>
+                  <em>
+                    <b>Quantity:</b>
+                  </em>
+                </Col>
+                <Col>
+                  <em>
+                    <b>Price:</b>
+                  </em>
+                </Col>
+              </Row>
+              {this.props.cartData.map(item => {
+                return (
+                  <Row className="border-left border-right border-bottom">
+                    <Col>{item.name}</Col>
+                    <Col>{item.quantity}x</Col>
+                    <Col>{convertRupiah.convert(item.price)}</Col>
+                  </Row>
+                );
+              })}
+            </Container>
+            <Container>
+              <Row className="border-left border-right border-bottom">
+                <Col>Total:</Col>
+                <Col></Col>
+                <Col>{convertRupiah.convert(this.props.totalPrice)}</Col>
+              </Row>
+            </Container>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.props.toggle}>
+              Print
+            </Button>{" "}
+            <Button color="secondary" onClick={this.props.toggle}>
+              Send E-Mail
+            </Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

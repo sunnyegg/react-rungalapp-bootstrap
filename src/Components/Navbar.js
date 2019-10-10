@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import logOutIcon from "../Assets/Icon/logout.svg";
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -7,17 +8,30 @@ export default class Navbar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-light bg-light">
-        <a className="navbar-brand ml-5">Food Items</a>
-        <form className="form-inline" style={{ marginRight: 405 }}>
-          <input
-            onChange={this.props.search}
-            className="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-        </form>
+      <nav className="navbar navbar-light bg-light border">
+        <div className="col-sm-3">
+          <a href="/home" className="navbar-brand">
+            Food Items
+          </a>
+        </div>
+
+        <div className="col-sm-2">
+          <form className="form-inline">
+            <input
+              onChange={this.props.search}
+              className="form-control"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </form>
+        </div>
+
+        <div className="col-sm-1">
+          <button className="btn btn-danger">
+            <img src={logOutIcon} />
+          </button>
+        </div>
       </nav>
     );
   }

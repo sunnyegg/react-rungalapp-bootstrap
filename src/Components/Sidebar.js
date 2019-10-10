@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Axios from "axios";
+
 import {
   Button,
   Modal,
@@ -15,20 +17,67 @@ import {
   FormText
 } from "reactstrap";
 
+import addIcon from "../Assets/Icon/add.svg";
+import historyIcon from "../Assets/Icon/history.svg";
+import homeIcon from "../Assets/Icon/home.svg";
+
 export default class Sidebar extends Component {
   constructor(props) {
     super();
+    // this.state = {
+    //   modal: false,
+    //   addModal: false
+    // };
+    // this.toggle = this.toggle.bind(this);
+    // this.addModalToggle = this.addModalToggle.bind(this);
   }
+
+  addProduct(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+
+    Axios.post("http://localhost:3333/api/v1/products", data);
+
+    setTimeout(window.location.reload(), 1000);
+  }
+
+  // toggle() {
+  //   this.setState(prevState => ({
+  //     modal: !prevState.modal
+  //   }));
+  // }
+  // addModalToggle() {
+  //   this.setState(prevState => ({
+  //     addModal: !prevState.addModal
+  //   }));
+  // }
+
   render() {
     return (
-      <div className="col-sm-1">
-        <Button
-          className="mt-5"
-          color="success"
-          onClick={this.props.addModalToggle}
-        >
-          Add Product
-        </Button>
+      <div
+        className="col-sm-1 border-right"
+        style={{ backgroundColor: "#f8f9fa" }}
+      >
+        <Row>
+          <Button className="mt-3 ml-3" color="#f8f9fa">
+            <img style={{ width: "38px", height: "38" }} src={homeIcon} />
+          </Button>
+        </Row>
+        <Row>
+          <Button className="mt-3 ml-3" color="#f8f9fa">
+            <img style={{ width: "38px", height: "38px" }} src={historyIcon} />
+          </Button>
+        </Row>
+        <Row>
+          <Button
+            className="mt-5 ml-3"
+            color="#f8f9fa"
+            onClick={this.props.addModalToggle}
+          >
+            <img style={{ width: "38px", height: "38px" }} src={addIcon} />
+          </Button>
+        </Row>
+
         <Modal isOpen={this.props.addModal} toggle={this.props.addModalToggle}>
           <ModalHeader toggle={this.props.addModalToggle}>
             <Container>
@@ -40,7 +89,7 @@ export default class Sidebar extends Component {
             </Container>
           </ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.props.addProduct}>
+            <Form onSubmit={this.addProduct}>
               <FormGroup>
                 <Label>Product Name</Label>
                 <Input type="text" name="name" />
