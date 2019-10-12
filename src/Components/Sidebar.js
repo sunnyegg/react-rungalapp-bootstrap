@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 
 import {
@@ -18,18 +19,12 @@ import {
 } from "reactstrap";
 
 import addIcon from "../Assets/Icon/add.svg";
-import historyIcon from "../Assets/Icon/history.svg";
 import homeIcon from "../Assets/Icon/home.svg";
+import chartIcon from "../Assets/Icon/chart.svg";
 
 export default class Sidebar extends Component {
   constructor(props) {
     super();
-    // this.state = {
-    //   modal: false,
-    //   addModal: false
-    // };
-    // this.toggle = this.toggle.bind(this);
-    // this.addModalToggle = this.addModalToggle.bind(this);
   }
 
   addProduct(event) {
@@ -41,22 +36,13 @@ export default class Sidebar extends Component {
     setTimeout(window.location.reload(), 1000);
   }
 
-  // toggle() {
-  //   this.setState(prevState => ({
-  //     modal: !prevState.modal
-  //   }));
-  // }
-  // addModalToggle() {
-  //   this.setState(prevState => ({
-  //     addModal: !prevState.addModal
-  //   }));
-  // }
-
   render() {
     return (
       <div
         className="col-sm-1 border-right"
-        style={{ backgroundColor: "#f8f9fa" }}
+        style={{
+          backgroundColor: "#f8f9fa"
+        }}
       >
         <Row>
           <Button className="mt-3 ml-3" color="#f8f9fa">
@@ -64,9 +50,11 @@ export default class Sidebar extends Component {
           </Button>
         </Row>
         <Row>
-          <Button className="mt-3 ml-3" color="#f8f9fa">
-            <img style={{ width: "38px", height: "38px" }} src={historyIcon} />
-          </Button>
+          <Link to="/revenue">
+            <Button className="mt-3 ml-3" color="#f8f9fa">
+              <img style={{ width: "38px", height: "38px" }} src={chartIcon} />
+            </Button>
+          </Link>
         </Row>
         <Row>
           <Button

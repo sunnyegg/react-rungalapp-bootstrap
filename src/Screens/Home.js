@@ -9,26 +9,6 @@ import Body from "../Components/Body";
 import Sidebar from "../Components/Sidebar";
 import Cartside from "../Components/Cartside";
 
-// import cartIcon from "../Assets/Icon/cartIcon.svg";
-// import deleteIcon from "../Assets/Icon/delete.svg";
-// import editIcon from "../Assets/Icon/edit.svg";
-
-// import {
-//   Button,
-//   Modal,
-//   ModalHeader,
-//   ModalBody,
-//   ModalFooter,
-//   Container,
-//   Row,
-//   Col,
-//   Form,
-//   FormGroup,
-//   Label,
-//   Input,
-//   FormText
-// } from "reactstrap";
-
 class Home extends Component {
   constructor(props) {
     super();
@@ -41,7 +21,10 @@ class Home extends Component {
       page: "1",
       totalPrice: 0,
       modal: false,
-      addModal: false
+      addModal: false,
+      orderName: "",
+      orderPrice: 0,
+      orderQuantity: 0
     };
     this.addCart = this.addCart.bind(this);
     this.toggle = this.toggle.bind(this);
@@ -70,32 +53,6 @@ class Home extends Component {
     this.setState({
       data: result.value.data.data
     });
-
-    // let querySearch, querySort, queryPage;
-
-    // if (search) querySearch = `&search=${search}`;
-    // else querySearch = "";
-
-    // if (sort && order) querySort = `?sort=${sort}&order=${order}`;
-    // else querySort = "";
-
-    // if (page) queryPage = `&page=${page}`;
-    // else queryPage = "";
-
-    // await axios
-    //   .get(
-    //     `http://localhost:3333/api/v1/products${querySort}${querySearch}${queryPage}`
-    //   )
-    //   .then(result => {
-    //     this.setState({ data: result.data.data });
-    //     console.log(result);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-
-    // await this.props.dispatch(getHome());
-    // this.setState({ data: this.props.data.Home });
   };
 
   getSearch = async event => {
@@ -176,7 +133,6 @@ class Home extends Component {
 
     cart.quantity += 1;
     cart.price += product.price;
-    console.log(cart);
     const totalPrice = this.state.totalPrice + product.price;
     this.setState({ carts: [cart], totalPrice });
   }
@@ -238,7 +194,6 @@ class Home extends Component {
             <Sidebar
               addModalToggle={this.addModalToggle}
               addModal={this.state.addModal}
-              // addProduct={this.addProduct}
             />
             <div
               className="col-sm-7 border mt-3 mb-2 ml-1 mr-1"

@@ -19,6 +19,10 @@ export default class Cartside extends Component {
     super();
   }
 
+  checkoutData = () => {
+    console.log(this.props.cartData);
+  };
+
   render() {
     return (
       <div>
@@ -77,36 +81,40 @@ export default class Cartside extends Component {
             )}
           </div>
         </div>
-        <div className="row mt-5 mx-auto border-top border-bottom">
-          <div className="col-sm-12 mt-3">
-            <h4 className="text-center">
-              Total: {convertRupiah.convert(this.props.totalPrice)}*
-            </h4>
-            <p className="text-center">*Belum termasuk ppn</p>
+        <div
+          className="container"
+          style={{ backgroundColor: "white", position: "sticky", bottom: "0" }}
+        >
+          <div className="row mt-5 mx-auto border-top border-bottom">
+            <div className="col-sm-12 mt-3">
+              <h5 className="text-center">
+                Total: {convertRupiah.convert(this.props.totalPrice)}*
+              </h5>
+              <p className="text-center">*Belum termasuk ppn</p>
+            </div>
+          </div>
+          <div className="row mx-auto mt-3">
+            <div className="col-sm-12">
+              <button
+                type="button"
+                className="btn btn-primary w-100"
+                onClick={this.props.toggle}
+              >
+                Checkout
+              </button>
+            </div>
+            <div className="col-sm-12 mt-2 mb-3">
+              <button
+                type="button"
+                className="btn btn-danger w-100"
+                onClick={this.props.cancelCart}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
-        <div className="row mx-auto mt-3">
-          <div className="col-sm-12">
-            <button
-              type="button"
-              className="btn btn-primary w-100"
-              // style={{ borderRadius: 0 }}
-              onClick={this.props.toggle}
-            >
-              Checkout
-            </button>
-          </div>
-          <div className="col-sm-12 mt-2">
-            <button
-              type="button"
-              className="btn btn-danger w-100"
-              // style={{ borderRadius: 0 }}
-              onClick={this.props.cancelCart}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
+
         <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
           <ModalHeader
             toggle={this.props.toggle}
@@ -168,7 +176,7 @@ export default class Cartside extends Component {
             </Container>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.props.toggle}>
+            <Button color="primary" onClick={() => this.checkoutData()}>
               Print
             </Button>{" "}
             <Button color="secondary" onClick={this.props.toggle}>
