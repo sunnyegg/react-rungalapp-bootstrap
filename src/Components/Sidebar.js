@@ -31,7 +31,7 @@ export default class Sidebar extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
 
-    Axios.post("http://localhost:3333/api/v1/products", data);
+    Axios.post("http://100.24.15.0:3000/api/v1/products", data);
 
     setTimeout(window.location.reload(), 1000);
   }

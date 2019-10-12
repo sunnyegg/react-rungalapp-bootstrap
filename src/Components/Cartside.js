@@ -39,7 +39,7 @@ export default class Cartside extends Component {
                     style={{ width: 200, marginTop: 10 }}
                   >
                     <img
-                      src={`http://localhost:3333/${item.image}`}
+                      src={`http://100.24.15.0:3000/${item.image}`}
                       className="card-img-top"
                       alt={item.name}
                     />

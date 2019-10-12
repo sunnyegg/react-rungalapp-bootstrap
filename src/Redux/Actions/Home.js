@@ -7,7 +7,7 @@ export const getHome = options => {
       const { search = "", sort = "", page = "1", order = "" } = options;
 
       Axios.get(
-        `http://localhost:3333/api/v1/products?sort=${sort}&order=${order}&search=${search}&page=${page}`
+        `http://100.24.15.0:3000/api/v1/products?sort=${sort}&order=${order}&search=${search}&page=${page}`
       )
         .then(result => resolve(result))
         .catch(error => reject(error));

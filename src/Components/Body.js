@@ -58,7 +58,7 @@ export default class Body extends Component {
     const dataEdit = new FormData(event.target);
     const editID = this.state.dataID;
 
-    Axios.put(`http://localhost:3333/api/v1/products/${editID}`, dataEdit);
+    Axios.put(`http://100.24.15.0:3000/api/v1/products/${editID}`, dataEdit);
   };
 
   handlerEdit = event => {
@@ -77,7 +77,7 @@ export default class Body extends Component {
             <div className="col-sm-4 mb-3">
               <div className="card" style={{ width: "auto", marginTop: 20 }}>
                 <img
-                  src={`http://localhost:3333/${item.image}`}
+                  src={`http://100.24.15.0:3000/${item.image}`}
                   className="card-img-top"
                   alt={item.name}
                 />

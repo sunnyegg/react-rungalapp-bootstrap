@@ -174,7 +174,7 @@ class Home extends Component {
 
   deleteProduct(data, id) {
     if (window.confirm("Are you sure want to delete this product?")) {
-      axios.delete("http://localhost:3333/api/v1/products/" + id, data);
+      axios.delete("http://100.24.15.0:3000/api/v1/products/" + id, data);
 
       setTimeout(window.location.reload(), 1000);
     }

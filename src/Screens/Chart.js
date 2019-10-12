@@ -44,7 +44,7 @@ export default class RevenueChart extends Component {
   }
 
   getHistory() {
-    Axios.get("http://localhost:3333/api/v1/history")
+    Axios.get("http://100.24.15.0:3000/api/v1/history")
       .then(result => {
         this.setState({ history: result.data.data });
       })
@@ -54,7 +54,7 @@ export default class RevenueChart extends Component {
   }
 
   getDailyIncome() {
-    Axios.get("http://localhost:3333/api/v1/history/daily")
+    Axios.get("http://100.24.15.0:3000/api/v1/history/daily")
       .then(result => {
         this.setState({ dailyIncome: result.data.data });
       })
@@ -64,7 +64,7 @@ export default class RevenueChart extends Component {
   }
 
   getWeeklyIncome() {
-    Axios.get("http://localhost:3333/api/v1/history/weekly")
+    Axios.get("http://100.24.15.0:3000/api/v1/history/weekly")
       .then(result => {
         this.setState({ weeklyIncome: result.data.data });
       })
@@ -74,7 +74,7 @@ export default class RevenueChart extends Component {
   }
 
   getMonthlyIncome() {
-    Axios.get("http://localhost:3333/api/v1/history/monthly")
+    Axios.get("http://100.24.15.0:3000/api/v1/history/monthly")
       .then(result => {
         this.setState({ monthlyIncome: result.data.data });
       })
@@ -84,7 +84,7 @@ export default class RevenueChart extends Component {
   }
 
   getYearlyIncome() {
-    Axios.get("http://localhost:3333/api/v1/history/yearly")
+    Axios.get("http://100.24.15.0:3000/api/v1/history/yearly")
       .then(result => {
         this.setState({ yearlyIncome: result.data.data });
       })

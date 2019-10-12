@@ -42,7 +42,7 @@ export default class Login extends Component {
 
   submitLogin(data) {
     return new Promise((resolve, reject) => {
-      Axios.post("http://localhost:3333/api/v1/login", data)
+      Axios.post("http://100.24.15.0:3000/api/v1/login", data)
         .then(res => {
           storage.set("token", res.data.token);
 
@@ -59,7 +59,7 @@ export default class Login extends Component {
   //   event.preventDefault();
   //   let data = new FormData(event.target);
 
-  //   Axios.post("http://localhost:3333/api/v1/login", data)
+  //   Axios.post("http://100.24.15.0:3000/api/v1/login", data)
   //     .then(res => {
   //       let success = res.data.success;
   //       if (success === 200) {
