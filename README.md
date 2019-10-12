@@ -1,7 +1,9 @@
 ![](https://img.shields.io/badge/Dependencies-React-blue.svg)
-![](https://img.shields.io/badge/Storage-Localhost-orange.svg)
+![](https://img.shields.io/badge/Storage-Surge-sucess.svg)
 
 # React Rungal
+
+[rungal-app-surge.sh](http://rungal-app.surge.sh)
 
 ---
 
@@ -14,7 +16,7 @@
   - [Start](#start)
 - [Dependencies](#other-dependencies)
 - [Features](#features)
-- [Routes](#api-routes)
+- [Screenshots](#screenshots)
 
 ---
 
@@ -28,6 +30,7 @@ Rungal is a point of sales application of restaurant. The main use of this appli
 
 - [Node.js](https://nodejs.org/en/)
 - [React.js](https://reactjs.org/)
+- [Redux](https://react-redux.js.org/)
 - [Bootstrap](https://getbootstrap.com/)
 
 ---
@@ -55,25 +58,71 @@ $ npm start
 ## Other Dependencies
 
 - [Axios](https://www.npmjs.com/package/axios)
+- [Local-Storage](https://www.npmjs.com/package/local-storage)
+- [Moment.js](https://momentjs.com/)
+- [React-Chartjs-2](https://www.npmjs.com/package/react-chartjs-2)
 - [React Router DOM](https://www.npmjs.com/package/react-router-dom)
 - [Reactstrap](https://www.npmjs.com/package/reactstrap)
+- [Redux-Logger](https://www.npmjs.com/package/redux-logger)
+- [Redux-Promise-Middleware](https://www.npmjs.com/package/redux-promise-middleware)
+- [Rupiah-Format](https://www.npmjs.com/package/rupiah-format)
 
 ---
 
 ## Features
 
-- Get ALL products/categories
+- Get ALL products
+- Order products
 - Search, sort, pagination product
-- Add product/category
+- Add product
+- Edit product
+- Delete product
+- Shopping cart
 - Increase quantity product
 - Reduce quantity product
+- Chart revenue
+- History order
 
 ---
 
-## API Routes
+## Screenshots
 
-### Product
+### Login Page
 
-- **/** Login User
-- **/register** Register User
-- **/home** Order/Manage Product
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Login.png)
+
+### Home Page
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Home.png)
+
+### Add to Cart
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Add%20to%20Cart.png)
+
+### Checkout
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Checkout.png)
+
+### Add Product
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Add%20product.png)
+
+### Edit Product
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Edit%20product.png)
+
+### Delete Product
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Delete%20product.png)
+
+### Card Revenue Information
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Card.png)
+
+### Chart Revenue
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/Chart.png)
+
+### History Order
+
+![](https://raw.githubusercontent.com/sunnyegg/react-rungalapp-bootstrap/master/screenshots/History%20order.png)
