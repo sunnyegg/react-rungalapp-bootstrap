@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import ls from "local-storage";
 
 import {
   Button,
@@ -30,10 +31,13 @@ export default class Sidebar extends Component {
   addProduct(event) {
     event.preventDefault();
     const data = new FormData(event.target);
+    console.log(data);
 
-    Axios.post("http://100.24.15.0:3000/api/v1/products", data);
-
-    setTimeout(window.location.reload(), 1000);
+    Axios.post(`${process.env.REACT_APP_API_URL}/api/v1/products`, data, {
+      headers: {
+        Authorization: `Bearer ${ls.get("token")}`
+      }
+    });
   }
 
   render() {

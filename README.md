@@ -1,9 +1,15 @@
-![](https://img.shields.io/badge/Dependencies-React-blue.svg)
+![](https://img.shields.io/badge/Dependencies-React.js-blue.svg)
 ![](https://img.shields.io/badge/Storage-Surge-sucess.svg)
 
 # React Rungal
 
 [rungal-app-surge.sh](http://rungal-app.surge.sh)
+
+---
+
+## This project uses this API:
+
+1. Rungal API | [Link](https://github.com/sunnyegg/rungal-api)
 
 ---
 
@@ -28,10 +34,11 @@ Rungal is a point of sales application of restaurant. The main use of this appli
 
 ## Prerequisite
 
-- [Node.js](https://nodejs.org/en/)
-- [React.js](https://reactjs.org/)
-- [Redux](https://react-redux.js.org/)
-- [Bootstrap](https://getbootstrap.com/)
+| **Main Dependencies** | **Description**                                      | **Link**                          |
+| --------------------- | ---------------------------------------------------- | --------------------------------- |
+| **Node.js**           | A Javascript runtime.                                | [Go](https://nodejs.org/en/)      |
+| **React.js**          | A Javascript framework for building web application. | [Go](https://reactjs.org/)        |
+| **Redux**             | A global state management.                           | [Go](https://react-redux.js.org/) |
 
 ---
 
@@ -57,15 +64,11 @@ $ npm start
 
 ## Other Dependencies
 
-- [Axios](https://www.npmjs.com/package/axios)
-- [Local-Storage](https://www.npmjs.com/package/local-storage)
-- [Moment.js](https://momentjs.com/)
-- [React-Chartjs-2](https://www.npmjs.com/package/react-chartjs-2)
-- [React Router DOM](https://www.npmjs.com/package/react-router-dom)
-- [Reactstrap](https://www.npmjs.com/package/reactstrap)
-- [Redux-Logger](https://www.npmjs.com/package/redux-logger)
-- [Redux-Promise-Middleware](https://www.npmjs.com/package/redux-promise-middleware)
-- [Rupiah-Format](https://www.npmjs.com/package/rupiah-format)
+| **Other Dependencies** | **Description**                         | **Link**                                             |
+| ---------------------- | --------------------------------------- | ---------------------------------------------------- |
+| **Local-Storage**      | To save value globally and temporarily. | [Go](https://www.npmjs.com/package/local-storage)    |
+| **React-Chartjs-2**    | To process data into chart.             | [Go](https://www.npmjs.com/package/react-chartjs-2)  |
+| **React Router DOM**   | To navigate between screens.            | [Go](https://www.npmjs.com/package/react-router-dom) |
 
 ---
 

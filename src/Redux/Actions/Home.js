@@ -1,4 +1,5 @@
 import Axios from "axios";
+import ls from "local-storage";
 
 export const getHome = options => {
   return {
@@ -7,7 +8,12 @@ export const getHome = options => {
       const { search = "", sort = "", page = "1", order = "" } = options;
 
       Axios.get(
-        `http://100.24.15.0:3000/api/v1/products?sort=${sort}&order=${order}&search=${search}&page=${page}`
+        `${process.env.REACT_APP_API_URL}/api/v1/products?sort=${sort}&order=${order}&search=${search}&page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${ls.get("token")}`
+          }
+        }
       )
         .then(result => resolve(result))
         .catch(error => reject(error));

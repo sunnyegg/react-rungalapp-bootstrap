@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import ls from "local-storage";
 
 import {
   Button,
@@ -58,7 +59,15 @@ export default class Body extends Component {
     const dataEdit = new FormData(event.target);
     const editID = this.state.dataID;
 
-    Axios.put(`http://100.24.15.0:3000/api/v1/products/${editID}`, dataEdit);
+    Axios.put(
+      `${process.env.REACT_APP_API_URL}/api/v1/products/${editID}`,
+      dataEdit,
+      {
+        headers: {
+          Authorization: `Bearer ${ls.get("token")}`
+        }
+      }
+    );
   };
 
   handlerEdit = event => {
@@ -77,7 +86,7 @@ export default class Body extends Component {
             <div className="col-sm-4 mb-3">
               <div className="card" style={{ width: "auto", marginTop: 20 }}>
                 <img
-                  src={`http://100.24.15.0:3000/${item.image}`}
+                  src={`${process.env.REACT_APP_API_URL}/${item.image}`}
                   className="card-img-top"
                   alt={item.name}
                 />
@@ -100,7 +109,7 @@ export default class Body extends Component {
                     <div className="col-sm-3">
                       <button
                         className="btn btn-danger"
-                        onClick={() => this.props.deleteProduct(item, item.id)}
+                        onClick={() => this.props.deleteProduct(item.id)}
                       >
                         <img src={deleteIcon} />
                       </button>

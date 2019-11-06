@@ -16,7 +16,6 @@ import {
 } from "reactstrap";
 
 import Axios from "axios";
-import { reject } from "q";
 
 export default class RevenueChart extends Component {
   constructor(props) {
@@ -44,52 +43,52 @@ export default class RevenueChart extends Component {
   }
 
   getHistory() {
-    Axios.get("http://100.24.15.0:3000/api/v1/history")
+    Axios.get(`${process.env.REACT_APP_API_URL}/api/v1/history`)
       .then(result => {
         this.setState({ history: result.data.data });
       })
       .catch(error => {
-        reject(error);
+        console.log(error);
       });
   }
 
   getDailyIncome() {
-    Axios.get("http://100.24.15.0:3000/api/v1/history/daily")
+    Axios.get(`${process.env.REACT_APP_API_URL}/api/v1/history/daily`)
       .then(result => {
         this.setState({ dailyIncome: result.data.data });
       })
       .catch(error => {
-        reject(error);
+        console.log(error);
       });
   }
 
   getWeeklyIncome() {
-    Axios.get("http://100.24.15.0:3000/api/v1/history/weekly")
+    Axios.get(`${process.env.REACT_APP_API_URL}/api/v1/history/weekly`)
       .then(result => {
         this.setState({ weeklyIncome: result.data.data });
       })
       .catch(error => {
-        reject(error);
+        console.log(error);
       });
   }
 
   getMonthlyIncome() {
-    Axios.get("http://100.24.15.0:3000/api/v1/history/monthly")
+    Axios.get(`${process.env.REACT_APP_API_URL}/api/v1/history/monthly`)
       .then(result => {
         this.setState({ monthlyIncome: result.data.data });
       })
       .catch(error => {
-        reject(error);
+        console.log(error);
       });
   }
 
   getYearlyIncome() {
-    Axios.get("http://100.24.15.0:3000/api/v1/history/yearly")
+    Axios.get(`${process.env.REACT_APP_API_URL}/api/v1/history/yearly`)
       .then(result => {
         this.setState({ yearlyIncome: result.data.data });
       })
       .catch(error => {
-        reject(error);
+        console.log(error);
       });
   }
 

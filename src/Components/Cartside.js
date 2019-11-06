@@ -39,7 +39,7 @@ export default class Cartside extends Component {
                     style={{ width: 200, marginTop: 10 }}
                   >
                     <img
-                      src={`http://100.24.15.0:3000/${item.image}`}
+                      src={`${process.env.REACT_APP_API_URL}/${item.image}`}
                       className="card-img-top"
                       alt={item.name}
                     />

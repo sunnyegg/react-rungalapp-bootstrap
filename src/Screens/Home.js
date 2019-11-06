@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from "react";
 import axios from "axios";
+import ls from "local-storage";
 
 import { connect } from "react-redux";
 import { getHome } from "../Redux/Actions/Home";
@@ -38,6 +39,7 @@ class Home extends Component {
       this.state.order,
       this.state.page
     );
+    console.log(ls.get("token"));
   }
 
   getAll = async () => {
@@ -172,11 +174,17 @@ class Home extends Component {
 
   // Delete Product
 
-  deleteProduct(data, id) {
+  deleteProduct(id) {
+    console.log(`Bearer ${ls.get("token")}`);
     if (window.confirm("Are you sure want to delete this product?")) {
-      axios.delete("http://100.24.15.0:3000/api/v1/products/" + id, data);
-
-      setTimeout(window.location.reload(), 1000);
+      axios.delete(`${process.env.REACT_APP_API_URL}/api/v1/products/${id}`, {
+        headers: {
+          Authorization: `Bearer ${ls.get("token")}`
+        }
+      });
+      alert("Deleted");
+    } else {
+      alert("Cannot Delete");
     }
   }
 
